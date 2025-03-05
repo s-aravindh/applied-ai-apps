@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 from openai import OpenAI
 
@@ -21,18 +22,25 @@ def generate_minutes(transcription):
     """
     
     response = client.chat.completions.create(
-        model="gpt-4",
+        model="llama3",
         messages=[{"role": "user", "content": prompt}]
     )
     
     return response.choices[0].message.content
 
-def save_minutes(minutes, output_file):
+def save_minutes(minutes, output_file, base_dir=None):
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"minutes_{timestamp}.md"
+    
+    if base_dir is None:
+        if isinstance(base_dir, str):
+            base_dir = os.path.dirname(os.path.abspath(base_dir))
+        else:
+            base_dir = os.getcwd()
     
     if output_file:
-        filename = output_file
+        filename = os.path.join(base_dir, output_file)
+    else:
+        filename = os.path.join(base_dir, f"minutes_{timestamp}.md")
     
     with open(filename, 'w') as file:
         file.write(minutes)
@@ -43,7 +51,7 @@ def main(transcription_file, output_file=None):
     try:
         transcription = read_transcription(transcription_file)
         minutes = generate_minutes(transcription)
-        saved_file = save_minutes(minutes, output_file)
+        saved_file = save_minutes(minutes, output_file, transcription_file)
         print(f"Meeting minutes saved to: {saved_file}")
     except Exception as e:
         print(f"Error: {str(e)}")
