@@ -6,3 +6,6 @@ torch
 keyboard
 pyaudio
 wave
+streamlit
+openai
+python-dotenv
