@@ -1,0 +1,8 @@
+sounddevice
+soundfile
+numpy
+transformers
+torch
+keyboard
+pyaudio
+wave
