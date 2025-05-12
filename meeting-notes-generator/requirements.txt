@@ -9,3 +9,7 @@ wave
 gradio
 openai
 python-dotenv
+agno
+sqlalchemy
+boto3
+aws-sdk
