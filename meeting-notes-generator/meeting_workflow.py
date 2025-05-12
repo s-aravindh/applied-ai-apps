@@ -6,7 +6,7 @@ from typing import Iterator
 from transformers import WhisperProcessor, WhisperForConditionalGeneration
 
 from agno.agent import Agent
-from agno.models.bedrock import BedrockClaude
+from agno.models.aws.bedrock import AwsBedrock
 from agno.storage.sqlite import SqliteStorage
 from agno.workflow import Workflow, RunResponse
 from agno.utils.log import logger
